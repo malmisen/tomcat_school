@@ -11,6 +11,7 @@ package recourses;
 public class UserResult {
     private String subject;
     private int score;
+    private int quizId;
     
     public UserResult(){
         
@@ -30,5 +31,12 @@ public class UserResult {
     
     public void setScore(int score){
         this.score = score;
+    }
+    
+    public void setQuizId(int id){
+        quizId = id;
+    }
+    public int getQuizId(){
+        return quizId;
     }
 }

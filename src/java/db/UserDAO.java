@@ -7,6 +7,8 @@ package db;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import recourses.User;
 import recourses.UserResult;
 import recourses.UserResults;
@@ -26,6 +28,7 @@ public class UserDAO implements UserInterfaceDAO {
     
     //QUIZZES TABLE
     private static final String QUIZZES_COLUMN_SUBJECT_NAME = "subject";
+    private static final String QUIZZES_COLUMN_ID_NAME = "id";
     
     //RESULTS TABLE
     private static final String RESULTS_COLUMN_SCORE_NAME = "score";
@@ -34,6 +37,7 @@ public class UserDAO implements UserInterfaceDAO {
     private PreparedStatement createNewUserStatement;
     private PreparedStatement searchExistingUserStatement;
     private PreparedStatement getUserQuizResults;
+    private PreparedStatement updateUserQuizResultsStatement;
     
     public UserDAO(){
         try{
@@ -96,6 +100,7 @@ public class UserDAO implements UserInterfaceDAO {
                 result = new UserResult();
                 result.setQuiz(resultSet.getString(QUIZZES_COLUMN_SUBJECT_NAME));
                 result.setScore(resultSet.getInt(RESULTS_COLUMN_SCORE_NAME));
+                result.setQuizId(resultSet.getInt(QUIZZES_COLUMN_ID_NAME));
     
                 results.addResults(result);
                 count++;
@@ -108,10 +113,25 @@ public class UserDAO implements UserInterfaceDAO {
         return results;
     }
     
+    public boolean updateUserResults(User user, UserResult result){
+        int updatedRows = 0;
+        try {
+            updateUserQuizResultsStatement.setInt(1, user.getId());
+            updateUserQuizResultsStatement.setInt(2, result.getQuizId());
+            updateUserQuizResultsStatement.setInt(3, result.getScore());
+            updatedRows = updateUserQuizResultsStatement.executeUpdate();
+            if(updatedRows == 1) return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
     private void prepareStatements() throws SQLException{
         searchExistingUserStatement = db.getCon().prepareStatement("SELECT username, password, id FROM users WHERE username = ?");
         createNewUserStatement = db.getCon().prepareStatement("INSERT INTO users (username,password) VALUES (?,?)");
-        getUserQuizResults = db.getCon().prepareStatement("SELECT q.subject, r.score FROM quizzes AS q INNER JOIN results AS r WHERE q.id = r.quiz_id AND r.user_id = ?");
+        getUserQuizResults = db.getCon().prepareStatement("SELECT q.subject, q.id,r.score FROM quizzes AS q INNER JOIN results AS r WHERE q.id = r.quiz_id AND r.user_id = ?");
+        updateUserQuizResultsStatement = db.getCon().prepareStatement("INSERT INTO results (user_id, quiz_id, score) VALUES (?,?,?)");
     }    
 
    
