@@ -21,16 +21,22 @@ public class Quiz implements Serializable{
         questions = new ArrayList<Question>();
     }
     
-    private void setId(int id){
+    public void setId(int id){
         this.id = id;
     }
-    private void setSubject(String subject){
+    public void setSubject(String subject){
         this.subject = subject;
     }
-    private void addQuestion(Question q){
+    public void addQuestion(Question q){
         questions.add(q);
     }
     
+    public int getId(){
+        return id;
+    }
+    public String getSubject(){
+        return subject;
+    }
     
     
 }

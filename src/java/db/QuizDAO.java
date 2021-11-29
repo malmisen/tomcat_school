@@ -7,9 +7,13 @@ package db;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import recourses.User;
-import recourses.UserResult;
-import recourses.UserResults;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import recourses.Question;
+import recourses.Questions;
+import recourses.Quiz;
+import recourses.Quizzes;
+
 
 /**
  *
@@ -17,8 +21,19 @@ import recourses.UserResults;
  */
 public class QuizDAO {
     
+    //QUIZZES TABLE
+    private static final String QUIZZES_COLUMN_ID_NAME = "id";
+    private static final String QUIZZES_COLUMN_SUBJECT_NAME = "subject";
+    
+    //QUESTION TABLE
+    private static final String QUESTIONS_COLUMN_QUESTION_NAME = "text";
+    private static final String QUESTIONS_COLUMN_OPTIONS_NAME = "options";
+    private static final String QUESTIONS_COLUMN_ANSWER_NAME = "answer";
+    
+    
     private DBHandler db;
-    private PreparedStatement getQuizzes;
+    private PreparedStatement getQuizzesStatement;
+    private PreparedStatement getQuizQuestionsByQuizIdStatement;
    
     
     public QuizDAO(){
@@ -31,10 +46,48 @@ public class QuizDAO {
         }
     }
     
+    public Quizzes getQuizzes(){
+        ResultSet set = null;
+        Quizzes quizzes = new Quizzes();
+        
+        try {
+            set = getQuizzesStatement.executeQuery();
+            while(set.next()){
+                Quiz q = new Quiz();
+                q.setId(set.getInt(QUIZZES_COLUMN_ID_NAME));
+                q.setSubject(set.getString(QUIZZES_COLUMN_SUBJECT_NAME));
+                quizzes.addQuizzes(q);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(QuizDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return quizzes;
+    }
 
+    public Questions getQuestions(int id) {
+        ResultSet set = null;
+        Questions questions = new Questions();
+        
+        try {
+            getQuizQuestionsByQuizIdStatement.setInt(1, id);
+            set = getQuizQuestionsByQuizIdStatement.executeQuery();
+            while(set.next()){
+                Question q = new Question();
+                q.setQuestion(set.getString(QUESTIONS_COLUMN_QUESTION_NAME));
+                q.setOptions(set.getString(QUESTIONS_COLUMN_OPTIONS_NAME));
+                q.setAnswer(set.getString(QUESTIONS_COLUMN_ANSWER_NAME));
+                questions.addQuestion(q);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(QuizDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return questions;
+    }
   
     
     private void prepareStatements() throws SQLException{
-        
+        getQuizzesStatement = db.getCon().prepareStatement("SELECT id, subject FROM quizzes");
+        getQuizQuestionsByQuizIdStatement = db.getCon().prepareStatement("SELECT q.text,q.options,q.answer FROM questions AS q  INNER JOIN selector AS s WHERE q.id = s.question_id AND s.quiz_id = ?");
     }    
+
 }
