@@ -4,13 +4,13 @@
  */
 package servlet;
 
+import db.UserDAO;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.ModelImp;
 import recourses.User;
 
 
@@ -20,7 +20,6 @@ import recourses.User;
  */
 public class RegisterUserController extends HttpServlet {
     
-    private ModelImp model;
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -45,10 +44,21 @@ public class RegisterUserController extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         
+        //fetch inserted values
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
         
+        //check if user already exists
+        UserDAO dao = new UserDAO();
+        User dbUser = dao.getUser(user);
+        if(dbUser.getUsername() == null){
+            //if user does not exist then go ahead and create new one
+            dao.createNewUser(user);
+        }
+        
+        
+        /*
         //CHECK IF USER ALREADY EXISTS
         model = new ModelImp();
         boolean userAlreadyExists = model.doesUserExist(user);
@@ -58,7 +68,7 @@ public class RegisterUserController extends HttpServlet {
         if(!userAlreadyExists){
             created = model.createNewUser(user);
         }        
-        System.out.println("CREATED NEW USER: " + created);
+        System.out.println("CREATED NEW USER: " + created);*/
     }
 
     @Override
