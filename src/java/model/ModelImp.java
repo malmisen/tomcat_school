@@ -21,21 +21,21 @@ public class ModelImp implements ModelInterface{
     }
     
     @Override
-    public boolean doesUserExist(String username) {
-        User user = userInterfaceDAO.getUserByUsername(username, null);
-        if(user.getUsername()==null) return false;
+    public boolean doesUserExist(User user) {
+        User dbUser = userInterfaceDAO.getUser(user);
+        if(dbUser.getUsername()==null) return false;
         return true;
     }
 
     @Override
-    public boolean createNewUser(String username, String password) {
-        return userInterfaceDAO.createNewUser(username, password);
+    public boolean createNewUser(User user) {
+        return userInterfaceDAO.createNewUser(user);
     }
 
     @Override
-    public boolean loginUser(String username, String password) {
-        User user = userInterfaceDAO.getUserByUsername(username, password);
-        if(user.getUsername().equals(username) && user.getPassword().equals(password)){
+    public boolean loginUser(User user) {
+        User u = userInterfaceDAO.getUser(user);
+        if(u.equals(user)){
             return true;
         }
         return false;

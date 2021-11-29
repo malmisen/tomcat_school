@@ -11,6 +11,6 @@ import recourses.User;
  * @author regularclip
  */
 public interface UserInterfaceDAO {
-    User getUserByUsername(String username, String password);
-    boolean createNewUser(String username, String password);
+    User getUser(User user);
+    boolean createNewUser(User user);
 }

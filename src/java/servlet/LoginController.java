@@ -5,14 +5,13 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.ModelImp;
-import model.ModelInterface;
+import recourses.User;
 
 /**
  *
@@ -27,8 +26,11 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
         model = new ModelImp();
-        boolean success = model.loginUser(username, password);
+        boolean success = model.loginUser(user);
         System.out.println("LOGIN WAS A SUCCESS: " + success); 
         if(success){
             RequestDispatcher rd = request.getRequestDispatcher("quiz.jsp");

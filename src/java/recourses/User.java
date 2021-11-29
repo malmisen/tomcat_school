@@ -49,4 +49,9 @@ public class User implements Serializable {
         return email;
     }
     
+    public boolean equals(User u){
+        if(this.username.equals(u.getUsername()) && this.password.equals(u.getPassword())) return true;
+        return false;
+    }
+    
 }

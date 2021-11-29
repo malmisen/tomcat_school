@@ -35,33 +35,33 @@ public class UserDAO implements UserInterfaceDAO {
     }
     
     @Override
-    public User getUserByUsername(String username, String password) {
+    public User getUser(User user) {
         ResultSet result = null;
-        User user = new User();
+        User dbUser = new User();
         try{
-            searchExistingUserStatement.setString(1, username);
+            searchExistingUserStatement.setString(1, user.getUsername());
             System.out.println("Executing query..");
             result = searchExistingUserStatement.executeQuery();
             System.out.println("RESULT: " + result.toString());
             while(result.next()){
-                user.setUsername(result.getString(USER_COLUMN_USERNAME_NAME));
-                user.setPassword(result.getString(USER_COLUMN_PASSWORD_NAME));
+                dbUser.setUsername(result.getString(USER_COLUMN_USERNAME_NAME));
+                dbUser.setPassword(result.getString(USER_COLUMN_PASSWORD_NAME));
             }
         }catch(SQLException e){
             System.out.println("Something went wrong when executing query");
             e.getStackTrace();
         }
-        return user;
+        return dbUser;
     }
 
    
     @Override
-    public boolean createNewUser(String username, String password) {
-        System.out.println("CREATE NEW USER + " + username + " AND " + password);
+    public boolean createNewUser(User user) {
+       
         int updatedRows = 0;//keep count of the number of updated rows
         try{
-            createNewUserStatement.setString(1, username);
-            createNewUserStatement.setString(2, password);
+            createNewUserStatement.setString(1, user.getUsername());
+            createNewUserStatement.setString(2, user.getPassword());
             updatedRows = createNewUserStatement.executeUpdate();
             if(updatedRows != 1){
                 System.out.println("COULD NOT UPDATE ROW");

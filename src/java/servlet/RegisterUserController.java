@@ -44,16 +44,19 @@ public class RegisterUserController extends HttpServlet {
         String email = request.getParameter("email");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
-        System.out.println("Email: " + email +"\n"+"Username: " + username +"\n"+"Password: " + password);
+        
+        //CHECK IF USER ALREADY EXISTS
         model = new ModelImp();
-        boolean userAlreadyExists = model.doesUserExist(username);
-        System.out.println("Username is taken: " + userAlreadyExists);
+        boolean userAlreadyExists = model.doesUserExist(user);
+        
+        //IF USER DOES NOT EXIST CREATE NEW USER
         boolean created = false;
         if(!userAlreadyExists){
-            created = model.createNewUser(username, password);
+            created = model.createNewUser(user);
         }        
         System.out.println("CREATED NEW USER: " + created);
     }

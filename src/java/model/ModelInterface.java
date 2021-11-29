@@ -11,7 +11,7 @@ import recourses.User;
  * @author regularclip
  */
 public interface ModelInterface {
-    boolean doesUserExist(String username); 
-    boolean createNewUser(String username, String password);
-    boolean loginUser(String username, String password);
+    boolean doesUserExist(User user); 
+    boolean createNewUser(User user);
+    boolean loginUser(User user);
 }
