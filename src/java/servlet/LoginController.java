@@ -8,6 +8,7 @@ import db.QuizDAO;
 import db.UserDAO;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -61,7 +62,8 @@ public class LoginController extends HttpServlet {
                     System.out.println("Answer: "   + questions.getQuestion(j).getAnswer());
                 }
             }
-                    
+            ServletContext application = request.getServletContext();
+            application.setAttribute("user", dbUser);
             RequestDispatcher rd = request.getRequestDispatcher("quiz.jsp");
             rd.forward(request, response);
         } else {

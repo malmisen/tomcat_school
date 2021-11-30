@@ -4,7 +4,9 @@
     Author     : regularclip
 --%>
 
+<%@page import="recourses.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="servlet.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,5 +15,20 @@
     </head>
     <body>
         <h1>Hello World!</h1>
+       <table><tr><th>Username</th><th>Password</th></tr>
+        <%
+            // pre defined variables are request, response, out, session, application
+            User user = (User)application.getAttribute("user");
+
+        %>
+    <tr>
+        <td><%= user.getUsername() %></td>
+        <td><%= user.getPassword() %></td>
+    </tr>
+
+        <%
+            
+        %>
+        </table>
     </body>
 </html>
