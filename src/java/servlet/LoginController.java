@@ -63,6 +63,7 @@ public class LoginController extends HttpServlet {
                 }
             }
             
+            
             //Providing view with objects
             ServletContext application = request.getServletContext();
             application.setAttribute("user", dbUser);
