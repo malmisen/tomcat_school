@@ -62,8 +62,13 @@ public class LoginController extends HttpServlet {
                     System.out.println("Answer: "   + questions.getQuestion(j).getAnswer());
                 }
             }
+            
+            //Providing view with objects
             ServletContext application = request.getServletContext();
             application.setAttribute("user", dbUser);
+            application.setAttribute("results", results);
+            
+            //Send data down to view
             RequestDispatcher rd = request.getRequestDispatcher("quiz.jsp");
             rd.forward(request, response);
         } else {

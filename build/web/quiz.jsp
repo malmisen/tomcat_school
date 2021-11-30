@@ -4,6 +4,8 @@
     Author     : regularclip
 --%>
 
+<%@page import="recourses.UserResult"%>
+<%@page import="recourses.UserResults"%>
 <%@page import="recourses.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="servlet.*" %>
@@ -14,12 +16,11 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Account info!</h1>
        <table><tr><th>Username</th><th>Password</th></tr>
         <%
             // pre defined variables are request, response, out, session, application
-            User user = (User)application.getAttribute("user");
-
+            User user = (User)application.getAttribute("user");   
         %>
     <tr>
         <td><%= user.getUsername() %></td>
@@ -28,6 +29,22 @@
 
         <%
             
+        %>
+        </table>
+        <h1>Prior Results</h1>
+        <table><tr><th>Category</th><th>Score</th></tr>
+        <%
+            // pre defined variables are request, response, out, session, application
+            UserResults results = (UserResults)application.getAttribute("results");
+            for(UserResult r : results.getResults()){
+        %>
+    <tr>
+        <td><%= r.getQuiz() %></td>
+        <td><%= r.getScore() %></td>
+    </tr>
+
+        <%
+            }
         %>
         </table>
     </body>

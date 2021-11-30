@@ -30,4 +30,8 @@ public class UserResults implements Serializable{
     public UserResult getResult(int i){
         return results.get(i);
     }
+    
+    public ArrayList<UserResult> getResults(){
+        return results;
+    }
 }
