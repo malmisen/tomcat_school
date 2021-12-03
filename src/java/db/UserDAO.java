@@ -9,9 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import recourses.User;
-import recourses.UserResult;
-import recourses.UserResults;
+import resources.User;
+import resources.UserResult;
+import resources.UserResults;
 
 /**
  *
