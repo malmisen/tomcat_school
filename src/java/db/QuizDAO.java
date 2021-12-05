@@ -9,10 +9,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import recourses.Question;
-import recourses.Questions;
-import recourses.Quiz;
-import recourses.Quizzes;
+import resources.Question;
+import resources.Questions;
+import resources.Quiz;
+import resources.Quizzes;
 
 
 /**
@@ -26,6 +26,7 @@ public class QuizDAO {
     private static final String QUIZZES_COLUMN_SUBJECT_NAME = "subject";
     
     //QUESTION TABLE
+    private static final String QUESTIONS_COLUMN_PRIMARY_KEY = "id";
     private static final String QUESTIONS_COLUMN_QUESTION_NAME = "text";
     private static final String QUESTIONS_COLUMN_OPTIONS_NAME = "options";
     private static final String QUESTIONS_COLUMN_ANSWER_NAME = "answer";
@@ -64,6 +65,7 @@ public class QuizDAO {
         return quizzes;
     }
 
+    /* The param is quiz id!*/
     public Questions getQuestions(int id) {
         ResultSet set = null;
         Questions questions = new Questions();
@@ -73,6 +75,7 @@ public class QuizDAO {
             set = getQuizQuestionsByQuizIdStatement.executeQuery();
             while(set.next()){
                 Question q = new Question();
+                q.setId(set.getInt(QUESTIONS_COLUMN_PRIMARY_KEY));
                 q.setQuestion(set.getString(QUESTIONS_COLUMN_QUESTION_NAME));
                 q.setOptions(set.getString(QUESTIONS_COLUMN_OPTIONS_NAME));
                 q.setAnswer(set.getString(QUESTIONS_COLUMN_ANSWER_NAME));
@@ -87,7 +90,7 @@ public class QuizDAO {
     
     private void prepareStatements() throws SQLException{
         getQuizzesStatement = db.getCon().prepareStatement("SELECT id, subject FROM quizzes");
-        getQuizQuestionsByQuizIdStatement = db.getCon().prepareStatement("SELECT q.text,q.options,q.answer FROM questions AS q  INNER JOIN selector AS s WHERE q.id = s.question_id AND s.quiz_id = ?");
+        getQuizQuestionsByQuizIdStatement = db.getCon().prepareStatement("SELECT q.id, q.text,q.options,q.answer FROM questions AS q  INNER JOIN selector AS s WHERE q.id = s.question_id AND s.quiz_id = ?");
     }    
 
 }

@@ -9,9 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import recourses.User;
-import recourses.UserResult;
-import recourses.UserResults;
+import resources.User;
+import resources.UserResult;
+import resources.UserResults;
 
 /**
  *
@@ -38,6 +38,7 @@ public class UserDAO implements UserInterfaceDAO {
     private PreparedStatement searchExistingUserStatement;
     private PreparedStatement getUserQuizResults;
     private PreparedStatement updateUserQuizResultsStatement;
+    private PreparedStatement getUserByUserIdStatement;
     
     public UserDAO(){
         try{
@@ -114,6 +115,9 @@ public class UserDAO implements UserInterfaceDAO {
     }
     
     public boolean updateUserResults(User user, UserResult result){
+        
+        System.out.println("INSIDE UPDATE FUNCTION: ");
+        System.out.println("quizId: " + result.getQuizId());
         int updatedRows = 0;
         try {
             updateUserQuizResultsStatement.setInt(1, user.getId());
@@ -127,11 +131,34 @@ public class UserDAO implements UserInterfaceDAO {
         return false;
     }
     
+    public User getUserById(int id) {
+        System.out.println("I GOT ID " + id);
+        ResultSet result = null;
+        User dbUser = new User();
+        try{
+             getUserByUserIdStatement.setInt(1, id);
+            result =  getUserByUserIdStatement.executeQuery();
+            while(result.next()){
+                dbUser.setUsername(result.getString(USER_COLUMN_USERNAME_NAME));
+                dbUser.setPassword(result.getString(USER_COLUMN_PASSWORD_NAME));
+                dbUser.setId(result.getInt(USER_COLUMN_ID_NAME));
+            }
+        }catch(SQLException e){
+            System.out.println("Something went wrong when executing query");
+            e.getStackTrace();
+        }
+        System.out.println("Found user info: ");
+        System.out.println(dbUser.getUsername());
+        return dbUser;
+
+    }
+    
     private void prepareStatements() throws SQLException{
         searchExistingUserStatement = db.getCon().prepareStatement("SELECT username, password, id FROM users WHERE username = ?");
         createNewUserStatement = db.getCon().prepareStatement("INSERT INTO users (username,password) VALUES (?,?)");
         getUserQuizResults = db.getCon().prepareStatement("SELECT q.subject, q.id,r.score FROM quizzes AS q INNER JOIN results AS r WHERE q.id = r.quiz_id AND r.user_id = ?");
         updateUserQuizResultsStatement = db.getCon().prepareStatement("INSERT INTO results (user_id, quiz_id, score) VALUES (?,?,?)");
+        getUserByUserIdStatement = db.getCon().prepareStatement("SELECT username, password, id FROM users WHERE id = ?" );
     }    
 
    

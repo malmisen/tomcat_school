@@ -16,6 +16,10 @@
         <servlet-name>QuizController</servlet-name>
         <servlet-class>servlet.QuizController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GameController</servlet-name>
+        <servlet-class>servlet.GameController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>WelcomeController</servlet-name>
         <url-pattern>/WelcomeController</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>QuizController</servlet-name>
         <url-pattern>/QuizController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GameController</servlet-name>
+        <url-pattern>/GameController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

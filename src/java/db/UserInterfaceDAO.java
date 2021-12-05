@@ -4,7 +4,7 @@
  */
 package db;
 
-import recourses.User;
+import resources.User;
 
 /**
  *

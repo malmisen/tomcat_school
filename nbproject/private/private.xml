@@ -5,16 +5,11 @@
         <group>
             <file>file:/Users/regularclip/Documents/school/network_programming/assignments/assignment1/webapp/src/java/servlet/LoginController.java</file>
             <file>file:/Users/regularclip/Documents/school/network_programming/assignments/assignment1/webapp/src/java/servlet/QuizController.java</file>
-            <file>file:/Users/regularclip/Documents/school/network_programming/assignments/assignment1/webapp/src/java/servlet/WelcomeController.java</file>
             <file>file:/Users/regularclip/Documents/school/network_programming/assignments/assignment1/webapp/src/java/db/UserDAO.java</file>
-            <file>file:/Users/regularclip/Documents/school/network_programming/assignments/assignment1/webapp/src/java/recourses/User.java</file>
-            <file>file:/Users/regularclip/Documents/school/network_programming/assignments/assignment1/webapp/src/java/recourses/UserResult.java</file>
             <file>file:/Users/regularclip/Documents/school/network_programming/assignments/assignment1/webapp/web/quiz.jsp</file>
-            <file>file:/Users/regularclip/Documents/school/network_programming/assignments/assignment1/webapp/src/java/recourses/Quizzes.java</file>
-            <file>file:/Users/regularclip/Documents/school/network_programming/assignments/assignment1/webapp/web/register.jsp</file>
-            <file>file:/Users/regularclip/Documents/school/network_programming/assignments/assignment1/webapp/src/java/recourses/Quiz.java</file>
-            <file>file:/Users/regularclip/Documents/school/network_programming/assignments/assignment1/webapp/src/java/recourses/Questions.java</file>
-            <file>file:/Users/regularclip/Documents/school/network_programming/assignments/assignment1/webapp/src/java/recourses/UserResults.java</file>
+            <file>file:/Users/regularclip/Documents/school/network_programming/assignments/assignment1/webapp/web/quizzing.jsp</file>
+            <file>file:/Users/regularclip/Documents/school/network_programming/assignments/assignment1/webapp/web/welcome.jsp</file>
+            <file>file:/Users/regularclip/Documents/school/network_programming/assignments/assignment1/webapp/src/java/resources/UserResult.java</file>
         </group>
     </open-files>
 </project-private>

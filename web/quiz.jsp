@@ -1,47 +1,43 @@
-<%-- 
-    Document   : quiz
-    Created on : 28 Nov 2021, 17:59:52
-    Author     : regularclip
---%>
-
-<%@page import="recourses.UserResult"%>
-<%@page import="recourses.UserResults"%>
-<%@page import="recourses.User"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="resources.*"%>
 <%@page import="servlet.*" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
+        <style> body {font-family: Helvetica, sans-serif;} </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Another quiz game</title>
     </head>
     <body>
-        <h1>Account info!</h1>
-       <table><tr><th>Username</th><th>Password</th></tr>
         <%
             // pre defined variables are request, response, out, session, application
             User user = (User)application.getAttribute("user");   
         %>
-    <tr>
-        <td><%= user.getUsername() %></td>
-        <td><%= user.getPassword() %></td>
-    </tr>
-
+        
+        <h1>Welcome <%= user.getUsername() %></h1>
+        <p>Which quiz would you like to play?</p>
         <%
-            
+            Quizzes quizzes = (Quizzes)application.getAttribute("quizzes");
         %>
-        </table>
-        <h1>Prior Results</h1>
+        
+        <form method="get" action="QuizController">
+            <% for(Quiz q: quizzes.getAllQuizzes()){ %>
+            <% String conc = q.getId() + "#" + user.getId(); %>
+            <button type="submit" name="<%=q.getSubject()%>" value="<%=conc%>"><%=q.getSubject()%> </button>
+            <%}%>
+        </form>
+                 
+        <h1>Prior results</h1>
         <table><tr><th>Category</th><th>Score</th></tr>
         <%
             // pre defined variables are request, response, out, session, application
             UserResults results = (UserResults)application.getAttribute("results");
             for(UserResult r : results.getResults()){
         %>
-    <tr>
-        <td><%= r.getQuiz() %></td>
-        <td><%= r.getScore() %></td>
-    </tr>
+        <tr>
+            <td><%= r.getQuiz() %></td>
+            <td><%= r.getScore() %></td>
+        </tr>
 
         <%
             }
