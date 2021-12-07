@@ -1,6 +1,8 @@
-package resources;
+package beans;
 
-public class UserResult {
+import java.io.Serializable;
+
+public class UserResult implements Serializable{
     private String subject;
     private int score;
     private int quizId;

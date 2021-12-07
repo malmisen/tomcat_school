@@ -9,9 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import resources.User;
-import resources.UserResult;
-import resources.UserResults;
+import beans.User;
+import beans.UserResult;
+import beans.UserResults;
 
 /**
  *
@@ -150,7 +150,6 @@ public class UserDAO implements UserInterfaceDAO {
         System.out.println("Found user info: ");
         System.out.println(dbUser.getUsername());
         return dbUser;
-
     }
     
     private void prepareStatements() throws SQLException{

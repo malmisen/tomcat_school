@@ -2,15 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package resources;
+package beans;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author regularclip
  */
-public class Questions {
+public class Questions implements Serializable{
    private ArrayList<Question> questions;
    private int size;
    

@@ -9,9 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import resources.Quizzes;
-import resources.User;
-import resources.UserResults;
+import beans.Quizzes;
+import beans.User;
+import beans.UserResults;
 
 public class LoginController extends HttpServlet {
     

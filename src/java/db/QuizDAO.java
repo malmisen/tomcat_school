@@ -9,10 +9,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import resources.Question;
-import resources.Questions;
-import resources.Quiz;
-import resources.Quizzes;
+import beans.Question;
+import beans.Questions;
+import beans.Quiz;
+import beans.Quizzes;
 
 
 /**

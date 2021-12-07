@@ -10,13 +10,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import resources.Question;
-import resources.Questions;
-import resources.Quiz;
-import resources.Quizzes;
-import resources.User;
-import resources.UserResult;
-import resources.UserResults;
+import beans.Question;
+import beans.Questions;
+import beans.Quiz;
+import beans.Quizzes;
+import beans.User;
+import beans.UserResult;
+import beans.UserResults;
 
 public class QuizController extends HttpServlet {
     
@@ -83,7 +83,7 @@ public class QuizController extends HttpServlet {
         ArrayList<String> correctAnswers = new ArrayList<String>();
         
         int totalPoints = 0;
-        int quizId = 0;
+        //int quizId = 0;
         
         /* Hard coded, should probably be an array list (assuming there are only 3 questions) */
         boolean[] correct = {true, true, true};

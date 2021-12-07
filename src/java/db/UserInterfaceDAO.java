@@ -4,7 +4,7 @@
  */
 package db;
 
-import resources.User;
+import beans.User;
 
 /**
  *
