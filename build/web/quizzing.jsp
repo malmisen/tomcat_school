@@ -6,6 +6,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">        
+         <style> body {font-family: Helvetica, sans-serif;} </style>
     </head>
     <body>
          <% User currentUser = (User)application.getAttribute("user"); %>
@@ -19,7 +20,8 @@
                             <h3> <%=que.getQuestion()%> </h3>
                             <% for(String o: options) { %>
                             <% System.out.println("options: " + o.toString());%>
-                            <input type="checkbox" name="<%=i++%>" value="<%=o.toString()%>">
+                            <% String conc = o.toString() + "#" + currentUser.getId(); %>
+                            <input type="checkbox" name="<%=i++%>" value="<%=conc%>">
                             <label for="<%=o.toString()%>"><%=o.toString()%></label><br>
                             <% } %>
                         <%}%>     

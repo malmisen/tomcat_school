@@ -113,6 +113,8 @@ public class QuizController extends HttpServlet {
             }
         }
         
+        
+        
         /* fetch client answers  */
         ArrayList<String> answers = new ArrayList<String>();
         int i = 0;
@@ -123,7 +125,11 @@ public class QuizController extends HttpServlet {
             /*  Client answers first 3 */
             for(String a: q.getOptions().split("/")){
                 String answer = request.getParameter(String.valueOf(i));
-                if(answer != null) answers.add("1");
+                if(answer != null) {
+                    String[] split = answer.split("#");
+                    user.setId(Integer.parseInt(split[1]));
+                    answers.add("1");
+                }
                 else               answers.add("0");
                 
                 System.out.println("Answer: " + answers.get(k));
